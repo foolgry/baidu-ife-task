@@ -19,8 +19,10 @@ var aqiData = {};
 function addAqiData() {
     var city = document.getElementById("aqi-city-input"),
         qvalue = document.getElementById("aqi-value-input");
+    //设定正则
     var reCity = /^[a-z\u4e00-\u9fa5]+$/i,
         reQvalue = /^\d+$/;
+    //去前后空字符
     var cityValue = trim(city.value),
         qvalueValue = trim(qvalue.value);
     if(!reCity.test(cityValue)) {
@@ -76,6 +78,9 @@ function delBtnHandle(btnDel) {
 // do sth.
     var cityName = btnDel.parentNode.parentNode.children[0].innerHTML;
 
+    /*
+    删除按钮所在城市的数据，以便重新渲染
+     */
     for(var city in aqiData) {
         if(city == cityName) {
             delete aqiData[city];
@@ -83,6 +88,7 @@ function delBtnHandle(btnDel) {
     }
     renderAqiList();
 
+    //如果已经是最后一个数据，则把表格头部也删除掉
     if(isEmpty(aqiData)) {
         var tab = document.getElementById("aqi-table");
         tab.innerHTML = '';
@@ -109,6 +115,7 @@ function init() {
 // 想办法给aqi-table中的所有删除按钮绑定事件，触发delBtnHandle函数
     var tab = document.getElementById("aqi-table"),
         btns = tab.getElementsByTagName("button");
+    //利用时间委托给子元素绑定事件
     tab.onclick = function (e) {
         var e = e || window.event,
             target = e.target || e.srcElement;
