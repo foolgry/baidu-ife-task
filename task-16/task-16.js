@@ -30,7 +30,7 @@ function addAqiData() {
     } else if(!reQvalue.test(qvalueValue)) {
         alert("空气质量指数必须为整数");
     } else {
-        aqiData[city.value] = qvalue.value;
+        aqiData[cityValue] = qvalueValue;
 
     }
 
@@ -40,7 +40,7 @@ function addAqiData() {
     去除字符串前后空格
  */
 function trim (str) {
-    return str.replace(/^\s+|\s+$/,"");
+    return str.replace(/^\s+/,"").replace(/\s+$/,"");
 }
 /**
  * 渲染aqi-table表格
