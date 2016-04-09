@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        button {
+            margin: 0 5px;
+        }
+        div {
+            margin: 10px;
+            padding: 10px;
+        }
+
+        #list li {
+            float: left;
+            padding: 10px;
+            margin: 10px;
+            list-style: none;
+            background-color: #FC0100;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <input type="text" id="txt"/>
+    <button id="leftIn">左侧入</button>
+    <button id="rightIn">右侧入</button>
+    <button id="leftOut">左侧出</button>
+    <button id="rightOut">右侧出</button>
+    <ul id="list"></ul>
+</div>
+<script>
+
+    var txt = $('txt'),
+        leftIn = $('leftIn'),
+        leftOut = $('leftOut'),
+        rightIn = $('rightIn'),
+        rightOut = $('rightOut'),
+        list = $('list');
+
+    //判断是否为数字的正则
+    var re = /^\d+$/;
+
+    //左侧入
+    leftIn.onclick = function () {
+
+        if(!re.test(txt.value)) {
+            alert("输入必须是数字");
+            return;
+        }
+
+        var li = document.createElement("li");
+        li.innerHTML = txt.value;
+        txt.value = ''; //置空以便下次用户输入
+        if(list.children.length == 0) {
+            list.appendChild(li);
+        } else {
+            list.insertBefore(li, list.firstChild);
+        }
+    }
+    rightIn.onclick = function () {
+        if(!re.test(txt.value)) {
+            alert("输入必须是数字");
+            return;
+        }
+
+        var li = document.createElement("li");
+        li.innerHTML = txt.value;
+        txt.value = '';
+        list.appendChild(li);
+    }
+
+    leftOut.onclick = function () {
+        if(list.children.length !== 0) {
+            var first = list.removeChild(list.firstElementChild);
+            alert(first.innerHTML);
+        }
+    }
+    rightOut.onclick = function () {
+        if(list.children.length !== 0) {
+            var last = list.removeChild(list.lastElementChild);
+            alert(last.innerHTML);
+        }
+    }
+
+    //通过id获取DOM元素
+    function $(id) {
+        return document.getElementById(id);
+    }
+</script>
+</body>
+</html>
